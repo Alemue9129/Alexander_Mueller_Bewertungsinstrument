@@ -1,0 +1,468 @@
+<html lang="de" class="">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Applikation zur Bewertung der Total Cost of Ownership und Berechnung der Ökobilanz</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+
+  <body cz-shortcut-listen="true">
+    <div id="root">
+      <div class="p-5 m-auto mb-20 text-gray-900">
+        <h1 class="max-w-2xl m-auto text-3xl font-bold text-center">
+          Applikation zur Bewertung der Total Cost of Ownership und Berechnung der Ökobilanz
+        </h1>
+        <div class="max-w-4xl p-4 m-auto mt-10 text-xs bg-gray-300 border rounded">
+          <h2 class="text-lg font-bold">Hinweise zur Berechnung</h2>
+          <p class="mt-1">
+            In Bezug auf die Berechnung der TCO wird vorausgesetzt, dass das Fahrzeug über ein Annuitätendarlehen
+            finanziert wird. Nachfolgend wird das Annuitätendarlehen erläutert, sowie die Wahl der Finanzierung. Ein
+            Kauf über das Eigenkapital und Leasing werden ausgeschlossen. Die Zahlungen erfolgen jährlich am Ende des
+            Jahres, und die Zinsen werden jährlich nachschüssig berechnet. Zins- und Tilgungstermine stimmen dabei
+            überein. Darüber hinaus gelten die folgenden spezifischen Bedingungen:
+          </p>
+          <ul class="pl-5 my-2 mt-1 list-disc list-outside">
+            <li>Der Zinssatz ist ein Jahreszinssatz.</li>
+            <li>Der Zinssatz bleibt über die gesamte Laufzeit unverändert.</li>
+            <li>Die Laufzeit wird in Jahren angegeben und ist gleich der Nutzungsdauer des Lkw</li>
+            <li>Das Jahr "ND" bezieht sich auf das jeweilige Jahresende.</li>
+            <li>Die Annuität wird jedes Jahr in gleichbleibender Höhe geleistet.</li>
+          </ul>
+          <p class="mt-1">Allgemein gilt, dass alle Kosten als Nettokosten verstanden werden.</p>
+          <p class="mt-1">
+            Eine Berücksichtigung des Restwertes des Fahrzeuges findet nicht statt, da die Annahme getroffen wird, dass
+            das Fahrzeug nach Ablauf der Nutzungsdauer nicht verkauft wird, sondern verschrottet wird. Auch die Kosten
+            für etwaige Mautgebühren entfallen, da diese für Elektro-Fahrzeuge laut ICCT (2021) nicht erhoben werden
+            (Basma et al., 2021).
+          </p>
+          <p class="mt-1">
+            Das Dropdown über die Gewichtsklasse des Lkw nicht direkt, sondern indirekt auf die Berechnung der Total
+            Cost of Ownership aus. Indirekt, da vorausgesetzt wird, dass höhere Gewichtsklassen eine höhere
+            Fahrzeugbetriebskosten (Verbräuche) sowie höhere Wartungs- und Reparaturkosten nach sich ziehen. Bedeutet,
+            dass die Input-Daten für die Verbräuche und Wartungs- und Reparaturkosten je nach Szenario und
+            Gewichtsklasse durch den Anwender angepasst werden müssen.
+          </p>
+          <p class="mt-1">
+            Bei der Berechnung der Ökobilanz wird die Well-to-Wheel Methode angewendet, die den gesamten Prozess vom
+            Energierohstoff bis zum Fahrzeugbetrieb abbildet. CO₂-Emissionen, die durch Faktoren wie Fahrzeug- und
+            Batterieherstellung, Instandhaltung und Entsorgung verursacht werden finden keine Berücksichtigung in der
+            Bewertung. Die Berechnung der CO₂-Emissionen, die den gesamten Prozess vom Energierohstoff bis zum
+            Fahrzeugbetrieb abbilden, erfolgt über den Energieverbrauch, die jährliche Fahrleistung, die Nutzungsdauer
+            und den CO₂-Emissionsfaktor. Der Emissionsfaktor repräsentiert die Menge an CO₂, die bei der
+            Energiegewinnung entsteht.
+          </p>
+        </div>
+        <hr class="my-10" />
+        <h2 class="max-w-4xl pl-4 m-auto text-lg font-bold">Eingabefelder</h2>
+        <div class="max-w-3xl m-auto">
+          <form class="" id="form-form">
+            <div class="grid grid-cols-1 space-x-2 md:grid-cols-2">
+              <div class="my-6">
+                <label class="text-xs font-medium">Antriebsart</label>
+                <div class="">
+                  <div class="max-w-xs mt-2">
+                    <select
+                      id="p-1"
+                      name="fahrzeug"
+                      class="w-full p-2 rounded-md shadow-sm ring-1 ring-inset ring-gray-400"
+                    >
+                      <option>Elektro</option>
+                      <option>Wasserstoff</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div class="my-6">
+                <label class="text-xs font-medium">Anschaffungskosten in Euro</label>
+                <div class="">
+                  <div class="max-w-xs mt-2">
+                    <div class="flex w-full rounded-md shadow-sm ring-1 ring-inset ring-gray-400">
+                      <span class="flex items-center pl-3 text-xs text-gray-500 select-none w-36">€</span
+                      ><input
+                        id="p-2"
+                        type="number"
+                        name="anschaffungskosten"
+                        class="w-full p-2 text-right bg-transparent rounded-md"
+                        min="0"
+                        step="0.01"
+                        placeholder="80000,00"
+                        pattern="^\d*(\.\d{0,2})?$"
+                        value=""
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="my-6">
+                <label class="text-xs font-medium">Lkw-Gewichtsklassen in Tonnen</label>
+                <div class="">
+                  <div class="max-w-xs mt-2">
+                    <select
+                      id="p-3"
+                      name="fahrzeugtyp"
+                      class="w-full p-2 rounded-md shadow-sm ring-1 ring-inset ring-gray-400"
+                    >
+                      <option>3,5 Tonnen</option>
+                      <option>7,5 Tonnen</option>
+                      <option>18 Tonnen</option>
+                      <option>40 Tonnen</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div class="my-6">
+                <span class="p-1 mr-2 text-xs text-gray-500 bg-green-300 rounded select-none info-switch-button"
+                  >Info</span
+                >
+                <label class="text-xs font-medium">Nutzungsdauer in Jahren</label>
+                <div class="">
+                  <div class="text-sm text-gray-600 info-switch-value">
+                    Die Voreinstellung für die Nutzungsdauer beträgt 8 Jahre. Bei Bedarf möchten wir Sie bitten, die
+                    Nutzungsdauer nach Wunsch zu ändern.
+                  </div>
+                  <div class="max-w-xs mt-2">
+                    <div class="flex w-full rounded-md shadow-sm ring-1 ring-inset ring-gray-400">
+                      <span class="flex items-center pl-3 text-xs text-gray-500 select-none w-36">in Jahre</span
+                      ><input
+                        id="p-4"
+                        type="number"
+                        name="nutzungsdauer"
+                        class="w-full p-2 text-right bg-transparent rounded-md"
+                        min="0"
+                        step="0.01"
+                        placeholder="8"
+                        pattern="^\d*(\.\d{0,2})?$"
+                        value="8"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="my-6">
+                <label class="text-xs font-medium">Jährliche Fahrleistung in Kilometer</label>
+                <div class="">
+                  <div class="max-w-xs mt-2">
+                    <div class="flex w-full rounded-md shadow-sm ring-1 ring-inset ring-gray-400">
+                      <span class="flex items-center pl-3 text-xs text-gray-500 select-none w-36">km / Jahr</span
+                      ><input
+                        id="p-5"
+                        type="number"
+                        name="fahrleistung"
+                        class="w-full p-2 text-right bg-transparent rounded-md"
+                        min="0"
+                        step="0.01"
+                        pattern="^\d*(\.\d{0,2})?$"
+                        value="10000"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="bg-red-404 switch-1" id="switch-1">
+                <div class="my-6">
+                  <span class="p-1 mr-2 text-xs text-gray-500 bg-green-300 rounded select-none info-switch-button"
+                    >Info</span
+                  >
+                  <label class="text-xs font-medium">Energieverbrauch in kWh/km [E]</label>
+                  <div class="">
+                    <div class="text-sm text-gray-600 info-switch-value">
+                      Bitte erfassen Sie den Verbrauch pro Kilometer in der jeweiligen Einheit (kWh oder kg). Die
+                      Treibstoff- bzw. Energiekosten erfassen Sie bitte je kWh oder kg
+                    </div>
+                    <div class="max-w-xs mt-2">
+                      <div class="flex w-full rounded-md shadow-sm ring-1 ring-inset ring-gray-400">
+                        <span class="flex items-center pl-3 text-xs text-gray-500 select-none w-36">kWh / km</span
+                        ><input
+                          id="p-6a"
+                          type="number"
+                          name="verbrauch"
+                          class="w-full p-2 text-right bg-transparent rounded-md"
+                          min="0"
+                          step="0.01"
+                          placeholder="0,00"
+                          pattern="^\d*(\.\d{0,2})?$"
+                          value=""
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="my-6">
+                  <span class="p-1 mr-2 text-xs text-gray-500 bg-green-300 rounded select-none info-switch-button"
+                    >Info</span
+                  >
+                  <label class="text-xs font-medium">Energieverbrauch in H2/km [W]</label>
+                  <div class="">
+                    <div class="text-sm text-gray-600 info-switch-value">
+                      Bitte erfassen Sie den Verbrauch pro Kilometer in der jeweiligen Einheit (kWh oder kg). Die
+                      Treibstoff- bzw. Energiekosten erfassen Sie bitte je kWh oder kg
+                    </div>
+                    <div class="max-w-xs mt-2">
+                      <div class="flex w-full rounded-md shadow-sm ring-1 ring-inset ring-gray-400">
+                        <span class="flex items-center pl-3 text-xs text-gray-500 select-none w-36">H2 / km</span>
+                        <input
+                          id="p-6b"
+                          type="number"
+                          name="verbrauch"
+                          class="w-full p-2 text-right bg-transparent rounded-md"
+                          min="0"
+                          step="0.01"
+                          placeholder="0,00"
+                          pattern="^\d*(\.\d{0,2})?$"
+                          value=""
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="bg-red-404 switch-2" id="switch-2">
+                <div class="my-6">
+                  <label class="text-xs font-medium">Preis pro kWh in Euro</label>
+                  <div class="">
+                    <div class="max-w-xs mt-2">
+                      <div class="flex w-full rounded-md shadow-sm ring-1 ring-inset ring-gray-400">
+                        <span class="flex items-center pl-3 text-xs text-gray-500 select-none w-36">€ / kWh</span
+                        ><input
+                          id="p-7a"
+                          type="number"
+                          name="preis"
+                          class="w-full p-2 text-right bg-transparent rounded-md"
+                          min="0"
+                          step="0.01"
+                          placeholder="0,00"
+                          pattern="^\d*(\.\d{0,2})?$"
+                          value=""
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="my-6">
+                  <label class="text-xs font-medium">Preis pro kg Wasserstoff in Euro</label>
+                  <div class="">
+                    <div class="max-w-xs mt-2">
+                      <div class="flex w-full rounded-md shadow-sm ring-1 ring-inset ring-gray-400">
+                        <span class="flex items-center pl-3 text-xs text-gray-500 select-none w-36">€ / kg H2</span
+                        ><input
+                          id="p-7b"
+                          type="number"
+                          name="nutzungsdauer"
+                          class="w-full p-2 text-right bg-transparent rounded-md"
+                          min="0"
+                          step="0.01"
+                          placeholder="0,00"
+                          pattern="^\d*(\.\d{0,2})?$"
+                          value=""
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="my-6">
+                <span class="p-1 mr-2 text-xs text-gray-500 bg-green-300 rounded select-none info-switch-button"
+                  >Info</span
+                ><label class="text-xs font-medium">Zinssatz in % für die Finanzierung</label>
+                <div class="">
+                  <div class="text-sm text-gray-600 info-switch-value">
+                    Die Voreinstellung für den Zinssatz beträgt 4 Prozent (0,04). Bitte überprüfen Sie und ändern den
+                    Prozentsatz gemäß Ihrer Finanzierung. Stellen Sie dabei sicher, dass die Prozentzahl als
+                    nummerischer Wert eingetragen wird. Die hinterlegte Berechnungslogik erwartet, die ordnungsmäße
+                    Umrechnung. Beispiel: 0,04 für 4 Prozent
+                  </div>
+                  <div class="max-w-xs mt-2">
+                    <div class="flex w-full rounded-md shadow-sm ring-1 ring-inset ring-gray-400">
+                      <span class="flex items-center pl-3 text-xs text-gray-500 select-none w-36">in %</span
+                      ><input
+                        id="p-8"
+                        type="number"
+                        name="nutzungsdauer"
+                        class="w-full p-2 text-right bg-transparent rounded-md"
+                        min="0"
+                        step="0.01"
+                        placeholder="0,04"
+                        pattern="^\d*(\.\d{0,2})?$"
+                        value=""
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="my-6">
+                <span class="p-1 mr-2 text-xs text-gray-500 bg-green-300 rounded select-none info-switch-button"
+                  >Info</span
+                ><label class="text-xs font-medium">Kfz-Steuer pro Jahr in Euro</label>
+                <div class="">
+                  <div class="text-sm text-gray-600 info-switch-value">
+                    Die Voreinstellung beträgt 0,00 Euro. Bei Bedarf können Sie den Wert manuell ändern Information:
+                    Zulassungspflichtige reine Elektrofahrzeuge aller Fahrzeugklassen sind bei erstmaliger Zulassung bis
+                    Ende 2025 für maximal zehn Jahre von der Steuer befreit. Die Befreiung ist begrenzt bis zum
+                    31.12.2030 (Bundesministerium der Finanzen, 2023). Laut der Deutschen Energie-Agentur (2022), welche
+                    im Auftragt des Bundesministeriums für Wirtschaft und Klimaschutz informiert, trifft die Befreiung
+                    von der Kfz-Steuer auch auf wasserstoffbetriebene Fahrzeuge (Brennstoffzellenfahrzeuge) zu.
+                  </div>
+                  <div class="max-w-xs mt-2">
+                    <div class="flex w-full rounded-md shadow-sm ring-1 ring-inset ring-gray-400">
+                      <span class="flex items-center pl-3 text-xs text-gray-500 select-none w-36">€ / Jahr</span
+                      ><input
+                        id="p-9"
+                        type="number"
+                        name="nutzungsdauer"
+                        class="w-full p-2 text-right bg-transparent rounded-md"
+                        min="0"
+                        step="0.01"
+                        placeholder="200,00"
+                        pattern="^\d*(\.\d{0,2})?$"
+                        value="0"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="my-6">
+                <span class="p-1 mr-2 text-xs text-gray-500 bg-green-300 rounded select-none info-switch-button"
+                  >Info</span
+                ><label class="text-xs font-medium">Wartungs- und Reparaturkosten pro Jahr in Euro</label>
+                <div class="">
+                  <div class="text-sm text-gray-600 info-switch-value">
+                    Bitte erfassen Sie die jährlichen Wartungs- und Reparaturkosten
+                  </div>
+                  <div class="max-w-xs mt-2">
+                    <div class="flex w-full rounded-md shadow-sm ring-1 ring-inset ring-gray-400">
+                      <span class="flex items-center pl-3 text-xs text-gray-500 select-none w-36">€ / Jahr</span
+                      ><input
+                        id="p-12"
+                        type="number"
+                        name="nutzungsdauer"
+                        class="w-full p-2 text-right bg-transparent rounded-md"
+                        min="0"
+                        step="0.01"
+                        placeholder="200,00"
+                        pattern="^\d*(\.\d{0,2})?$"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="my-6">
+                <span class="p-1 mr-2 text-xs text-gray-500 bg-green-300 rounded select-none info-switch-button"
+                  >Info</span
+                ><label class="text-xs font-medium">Kfz-Versicherung pro Jahr in Euro</label>
+                <div class="">
+                  <div class="text-sm text-gray-600 info-switch-value">
+                    Bitte erfassen Sie die jährlichen Kosten für die Kfz-Versicherung.
+                  </div>
+                  <div class="max-w-xs mt-2">
+                    <div class="flex w-full rounded-md shadow-sm ring-1 ring-inset ring-gray-400">
+                      <span class="flex items-center pl-3 text-xs text-gray-500 select-none w-36">€ / Jahr</span
+                      ><input
+                        id="p-10"
+                        type="number"
+                        class="w-full p-2 text-right bg-transparent rounded-md"
+                        min="0"
+                        step="0.01"
+                        placeholder="200,00"
+                        pattern="^\d*(\.\d{0,2})?$"
+                        value=""
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="bg-red-404 switch-3" id="switch-3">
+                <div class="my-6">
+                  <span class="p-1 mr-2 text-xs text-gray-500 bg-green-300 rounded select-none info-switch-button"
+                    >Info</span
+                  ><label class="text-xs font-medium">CO₂-Emissionsfaktor [E]</label>
+                  <div class="">
+                    <div class="text-sm text-gray-600 info-switch-value">
+                      Der CO₂-Emissionsfaktor repräsentiert die Menge an CO₂, die bei der Energiegewinnung entsteht. Die
+                      Voreinstellung der jeweiligen CO₂-Emissionsfaktoren setzt voraus, dass der Strom aus dem deutschen
+                      Strommix bezogen wird und es sich bei Wasserstoff um grauen Wasserstoff handelt. Für Strom beträgt
+                      der CO₂-Emissionsfaktor laut Umweltbundesamt 434 g CO₂/kWh, umgerechnet in Kilogramm zu 0,434 kg
+                      CO₂/kWh (Umweltbundesamt, 31.07.2023). Wenn der Strom ausschließlich aus erneuerbaren Quellen
+                      bezogen wird, bitten wir Sie den Faktor dementsprechend manuell anzupassen. Für Wasserstoff
+                      beträgt der CO₂-Emissionsfaktor laut Umweltbundesamt 21,7 kg CO₂/kg H2 (Umweltbundesamt,
+                      30.11.2022).
+                    </div>
+                    <div class="max-w-xs mt-2">
+                      <div class="flex w-full rounded-md shadow-sm ring-1 ring-inset ring-gray-400">
+                        <span class="flex items-center pl-3 text-xs text-gray-500 select-none w-36">kg CO₂/kWh</span
+                        ><input
+                          id="p-11a"
+                          type="number"
+                          name="nutzungsdauer"
+                          class="w-full p-2 text-right bg-transparent rounded-md"
+                          min="0"
+                          step="0.001"
+                          placeholder="0"
+                          pattern="^\d*(\.\d{0,2})?$"
+                          value="0.434"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="my-6">
+                  <span class="p-1 mr-2 text-xs text-gray-500 bg-green-300 rounded select-none info-switch-button"
+                    >Info</span
+                  ><label class="text-xs font-medium">CO₂-Emissionsfaktor [W]</label>
+                  <div class="">
+                    <div class="text-sm text-gray-600 info-switch-value">
+                      Der CO₂-Emissionsfaktor repräsentiert die Menge an CO₂, die bei der Energiegewinnung entsteht. Die
+                      Voreinstellung der jeweiligen CO₂-Emissionsfaktoren setzt voraus, dass der Strom aus dem deutschen
+                      Strommix bezogen wird und es sich bei Wasserstoff um grauen Wasserstoff handelt. Für Strom beträgt
+                      der CO₂-Emissionsfaktor laut Umweltbundesamt 434 g CO₂/kWh, umgerechnet in Kilogramm zu 0,434 kg
+                      CO₂/kWh (Umweltbundesamt, 31.07.2023). Wenn der Strom ausschließlich aus erneuerbaren Quellen
+                      bezogen wird, bitten wir Sie den Faktor dementsprechend manuell anzupassen. Für Wasserstoff
+                      beträgt der CO₂-Emissionsfaktor laut Umweltbundesamt 21,7 kg CO₂/kg H2 (Umweltbundesamt,
+                      30.11.2022).
+                    </div>
+                    <div class="max-w-xs mt-2">
+                      <div class="flex w-full rounded-md shadow-sm ring-1 ring-inset ring-gray-400">
+                        <span class="flex items-center pl-3 text-xs text-gray-500 select-none w-36">kg CO₂/kg H2</span
+                        ><input
+                          id="p-11b"
+                          type="number"
+                          name="nutzungsdauer"
+                          class="w-full p-2 text-right bg-transparent rounded-md"
+                          min="0"
+                          step="0.01"
+                          placeholder="0"
+                          pattern="^\d*(\.\d{0,2})?$"
+                          value="21.7"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <button
+              class="w-full px-4 py-2 mt-2 text-white bg-green-500 rounded hover:bg-green-800"
+              type="submit"
+              id="form-submit"
+            >
+              Berechnen
+            </button>
+          </form>
+        </div>
+      </div>
+      <hr class="my-10" />
+      <div class="max-w-4xl p-4 m-auto mt-10 text-lg bg-gray-300 border rounded">
+        <h2 class="max-w-4xl m-auto text-lg font-bold">Ergebnis</h2>
+        <p>Total Cost of Ownership:<span class="ml-2" id="form-out-1"></span></p>
+        <p>Ökobilanz:<span class="ml-2" id="form-out-2"></span></p>
+      </div>
+
+      <div class="my-10"></div>
+      <p class="my-10 text-xs text-center">Alexander Müller - 2023</p>
+    </div>
+  </body>
+
+  <script src="logic.js"></script>
+  <script src="ui.js"></script>
+</html>
