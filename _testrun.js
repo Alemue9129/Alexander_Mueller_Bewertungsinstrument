@@ -23,34 +23,32 @@ function logObj(obj) {
 
 function run(data) {
   console.log("####################################################################")
-  logObj(elektro1)
+  logObj(data)
   console.log("\nTCO --------------------------")
 
-  log(new TotalCostOfOwnership(elektro1).AJ(), "AJ")
-  log(new TotalCostOfOwnership(elektro1).Fbkj(), "Fbkj")
-  log(new TotalCostOfOwnership(elektro1).A(), "A")
-  log(new TotalCostOfOwnership(elektro1).FbkND(), "FbkND")
-  log(new TotalCostOfOwnership(elektro1).W_fix * elektro1.ND, "W_fix * t1.ND")
-  log(new TotalCostOfOwnership(elektro1).S_fix * elektro1.ND, "S_fix * t1.ND")
-  log(new TotalCostOfOwnership(elektro1).V_fix * elektro1.ND, "V_fix * t1.ND")
+  log(new TotalCostOfOwnership(data).AJ(), "AJ")
+  log(new TotalCostOfOwnership(data).Fbkj(), "Fbkj")
+  log(new TotalCostOfOwnership(data).A(), "A")
+  log(new TotalCostOfOwnership(data).FbkND(), "FbkND")
+  log(new TotalCostOfOwnership(data).W_fix * data.ND, "W_fix * t1.ND")
+  log(new TotalCostOfOwnership(data).S_fix * data.ND, "S_fix * t1.ND")
+  log(new TotalCostOfOwnership(data).V_fix * data.ND, "V_fix * t1.ND")
   console.log()
-  log(new TotalCostOfOwnership(elektro1).calc(), "TCO")
+  log(new TotalCostOfOwnership(data).calc(), "TCO")
   console.log("---")
-  console.log(new TotalCostOfOwnership(elektro1).log(), "log")
+  console.log(new TotalCostOfOwnership(data).log(), "log")
   console.log("---")
 
   console.log("\nOekobilanz --------------------------")
-  log(new Oekobilanz(elektro1).co2jaehrlich(), "co2jaehrlich")
-  log(new Oekobilanz(elektro1).calc(), "Oekobilanz")
+  log(new Oekobilanz(data).co2jaehrlich(), "co2jaehrlich")
+  log(new Oekobilanz(data).calc(), "Oekobilanz")
   console.log("####################################################################")
 }
 
-// ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-// ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-// ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+// -------------------------------------------------------------------------------------------------------------------------------------
 
-console.log("--------------------")
-const elektro1 = {
+console.log("Kurzstrecke Elektro")
+run({
   AK: 100_000,
   ND: 8,
   KM: 80_000,
@@ -61,9 +59,10 @@ const elektro1 = {
   S_fix: 0.0,
   V_fix: 350,
   Co2EF: 0.434,
-}
+})
 
-const wasserstof1 = {
+console.log("Kurzstrecke Wasserstoff")
+run({
   AK: 100_000,
   ND: 8,
   KM: 80_000,
@@ -74,55 +73,4 @@ const wasserstof1 = {
   S_fix: 0.0,
   V_fix: 350,
   Co2EF: 21.7,
-}
-
-// logObj(elektro1)
-// console.log("\nTCO --------------------------")
-
-// log(new TotalCostOfOwnership(elektro1).AJ(), "AJ")
-// log(new TotalCostOfOwnership(elektro1).Fbkj(), "Fbkj")
-// log(new TotalCostOfOwnership(elektro1).A(), "A")
-// log(new TotalCostOfOwnership(elektro1).FbkND(), "FbkND")
-// log(new TotalCostOfOwnership(elektro1).W_fix * elektro1.ND, "W_fix * t1.ND")
-// log(new TotalCostOfOwnership(elektro1).S_fix * elektro1.ND, "S_fix * t1.ND")
-// log(new TotalCostOfOwnership(elektro1).V_fix * elektro1.ND, "V_fix * t1.ND")
-// console.log()
-// log(new TotalCostOfOwnership(elektro1).calc(), "TCO")
-
-// console.log("\nOekobilanz --------------------------")
-// log(new Oekobilanz(elektro1).co2jaehrlich(), "co2jaehrlich")
-// log(new Oekobilanz(elektro1).calc(), "Oekobilanz")
-// console.log("--------------------")
-
-// logObj(wasserstof1)
-// console.log("\nTCO --------------------------")
-
-// log(new TotalCostOfOwnership(wasserstof1).AJ(), "AJ")
-// log(new TotalCostOfOwnership(wasserstof1).Fbkj(), "Fbkj")
-// log(new TotalCostOfOwnership(wasserstof1).A(), "A")
-// log(new TotalCostOfOwnership(wasserstof1).FbkND(), "FbkND")
-// log(new TotalCostOfOwnership(wasserstof1).W_fix * wasserstof1.ND, "W_fix * t1.ND")
-// log(new TotalCostOfOwnership(wasserstof1).S_fix * wasserstof1.ND, "S_fix * t1.ND")
-// log(new TotalCostOfOwnership(wasserstof1).V_fix * wasserstof1.ND, "V_fix * t1.ND")
-// console.log()
-// log(new TotalCostOfOwnership(wasserstof1).calc(), "TCO")
-
-// console.log("\nOekobilanz --------------------------")
-// log(new Oekobilanz(wasserstof1).co2jaehrlich(), "co2jaehrlich")
-// log(new Oekobilanz(wasserstof1).calc(), "Oekobilanz")
-// console.log("--------------------")
-
-console.log("Kurzstrecke Elektro")
-run({
-  AK: 100_000,
-  C: 0.44,
-  Co2EF: 0.434,
-  KM: 80_000,
-  ND: 8,
-  P: 0.04,
-  S_fix: 0,
-  V: 0.17,
-  V_fix: 350,
-  W_fix: 250,
-  _TYPE: "Elektro",
 })
