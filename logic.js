@@ -63,20 +63,30 @@ if (typeof document != "undefined") {
     const p12 = document.getElementById("p-12").value
 
     const data = {
-      _TYPE: p1,
-      AK: p2 * 1,
-      ND: p4 * 1,
-      KM: p5 * 1,
-      V: p6_ * 1,
-      C: p7_ * 1,
-      W_fix: p12 * 1,
-      P: p8 * 1,
-      S_fix: p9 * 1,
-      V_fix: p10 * 1,
-      Co2EF: p11_ * 1,
+      AK: p2,
+      ND: p4,
+      KM: p5,
+      V: p6_,
+      C: p7_,
+      W_fix: p12,
+      P: p8,
+      S_fix: p9,
+      V_fix: p10,
+      Co2EF: p11_,
     }
 
-    // TODO: check if all values are set
+    // check if all values are set
+    if (Object.values(data).includes(NaN) || Object.values(data).includes("")) {
+      console.log(data)
+      alert("Bitte alle Felder ausfüllen!")
+    }
+
+    // cast all inputs to a number
+    for (const key in data) {
+      data[key] = Number.parseFloat(data[key])
+    }
+
+    data._TYPE = p1
 
     console.log(data)
 

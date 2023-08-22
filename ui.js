@@ -35,6 +35,8 @@ function changeFahrzeug(type) {
 const dropdownElement = document.getElementById("p-1")
 const infoButtonElementList = document.getElementsByClassName("info-switch-button")
 const infoMsgElementList = document.getElementsByClassName("info-switch-value")
+console.log(infoMsgElementList.length)
+console.log(infoButtonElementList.length)
 
 function init() {
   // set fahrzeugart
@@ -60,21 +62,13 @@ function listeners() {
     infoButtonElement.style.cursor = "pointer"
 
     infoButtonElement.addEventListener("click", (e) => {
-      for (let j = 0; j < infoMsgElementList.length; j++) {
-        const infoMsg = infoMsgElementList[j]
-        if (infoMsg.style.display != "none") {
-          infoMsg.style.display = "none"
-          for (let k = 0; k < infoButtonElementList.length; k++) {
-            const infoButton = infoButtonElementList[k]
-            infoButton.textContent = "Info"
-          }
-        } else {
-          infoMsg.style = ""
-          for (let k = 0; k < infoButtonElementList.length; k++) {
-            const infoButton = infoButtonElementList[k]
-            infoButton.textContent = "Schließen"
-          }
-        }
+      const infoMsg = infoMsgElementList[i]
+      if (infoMsg.style.display != "none") {
+        infoMsg.style.display = "none"
+        infoButtonElement.textContent = "Info"
+      } else {
+        infoMsg.style = ""
+        infoButtonElement.textContent = "Schließen"
       }
     })
   }
